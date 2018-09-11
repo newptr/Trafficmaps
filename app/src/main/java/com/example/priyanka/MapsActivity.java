@@ -175,8 +175,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             Address myAddress = addressList.get(i);
                             LatLng latLng = new LatLng(myAddress.getLatitude(), myAddress.getLongitude());
                             markerOptions.position(latLng);
+                            end_latitude = latLng.latitude;
+                            end_longitude = latLng.longitude;
+                            //set the
+                            mMap.clear();
                             mMap.addMarker(markerOptions);
                             mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+                            dataTransfer = new Object[3];
+                            String url = getDirectionsUrl();
+                            GetDirectionsData getDirectionsData = new GetDirectionsData();
+                            dataTransfer[0] = mMap;
+                            dataTransfer[1] = url;
+                            dataTransfer[2] = new LatLng(end_latitude, end_longitude);
+                            getDirectionsData.execute(dataTransfer);
                         }
                     }
 
@@ -205,7 +217,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dataTransfer[1] = url;
 
                 getNearbyPlacesData.execute(dataTransfer);
-                Toast.makeText(MapsActivity.this, "Showing Nearby Hospitals", Toast.LENGTH_LONG).show();
+                Toast.makeText(MapsActivity.this, "Showing Nearby Restaurant", Toast.LENGTH_LONG).show();
                 break;
             case R.id.B_school:
                 mMap.clear();
@@ -230,8 +242,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 getDirectionsData.execute(dataTransfer);
 
                 break;
-
-
         }
     }
 
@@ -240,7 +250,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         StringBuilder googleDirectionsUrl = new StringBuilder("https://maps.googleapis.com/maps/api/directions/json?");
         googleDirectionsUrl.append("origin="+latitude+","+longitude);
         googleDirectionsUrl.append("&destination="+end_latitude+","+end_longitude);
-        googleDirectionsUrl.append("&key="+"AIzaSyCAcfy-02UHSu2F6WeQ1rhQhkCr51eBL9g");
+        googleDirectionsUrl.append("&key=AIzaSyDjEK_vRWBhbFL4S_3CsXWO-TG_7bBkXwk");
 
         return googleDirectionsUrl.toString();
     }
@@ -252,7 +262,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
         googlePlacesUrl.append("&type=" + nearbyPlace);
         googlePlacesUrl.append("&sensor=true");
-        googlePlacesUrl.append("&key=" + "AIzaSyBj-cnmMUY21M0vnIKz0k3tD3bRdyZea-Y");
+        googlePlacesUrl.append("&key=" + "AIzaSyDjEK_vRWBhbFL4S_3CsXWO-TG_7bBkXwk");
         Log.d("getUrl", googlePlacesUrl.toString());
         return (googlePlacesUrl.toString());
     }
@@ -291,7 +301,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         latitude = location.getLatitude();
         longitude = location.getLongitude();
-
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
