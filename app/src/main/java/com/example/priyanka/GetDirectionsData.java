@@ -25,18 +25,19 @@ import java.util.List;
 
 public class GetDirectionsData extends AsyncTask<Object,String,String> {
 
+   // private String TAG = GetDirectionsData.class.getSimpleName();
+
     GoogleMap mMap;
     String url;
     String googleDirectionsData;
     String duration, distance;
     LatLng latLng;
     @Override
+    //do a background
     protected String doInBackground(Object... objects) {
         mMap = (GoogleMap)objects[0];
         url = (String)objects[1];
         latLng = (LatLng)objects[2];
-
-
 
         DownloadUrl downloadUrl = new DownloadUrl();
         try {
@@ -50,33 +51,39 @@ public class GetDirectionsData extends AsyncTask<Object,String,String> {
 
     @Override
     protected void onPostExecute(String s) {
-
-        String[] directionsList;
+        HashMap<String,String> directionsList = null;
         DataParser parser = new DataParser();
         directionsList = parser.parseDirections(s);
-        displayDirection(directionsList);
+
+        duration = directionsList.get("duration");
+        distance = directionsList.get("distance");
+
+        mMap.clear();
+     //   displayDirection(directionsList);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.draggable(true);
+        markerOptions.title("Duration = " +duration);
+      //  Log.e(TAG, "onPostExecute: Duration = " +duration);
+        markerOptions.snippet("Distance =" +distance);
+
+        mMap.addMarker(markerOptions);
 
     }
 
-    public void displayDirection(String[] directionsList)
-    {
-
-        int count = directionsList.length;
-        for(int i = 0;i<count;i++)
-        {
-            PolylineOptions options = new PolylineOptions();
-            options.color(Color.RED);
-            options.width(10);
-            options.addAll(PolyUtil.decode(directionsList[i]));
-
-            mMap.addPolyline(options);
-        }
-    }
-
-
-
-
-
-
+//   public void displayDirection(String[] directionsList)
+//    {
+//
+//        int count = directionsList.length;
+//        for(int i = 0;i<count;i++)
+//        {
+//            PolylineOptions options = new PolylineOptions();
+//            options.color(Color.RED);
+//            options.width(10);
+//            options.addAll(PolyUtil.decode(directionsList[i]));
+//
+//            mMap.addPolyline(options);
+//        }
+//    }
 }
 

@@ -23,9 +23,9 @@ class DataParser {
         String duration = "";
         String distance ="";
 
-
         try {
-
+            Log.d("json response",googleDirectionsJson.getJSONObject(0).toString());
+            //get the information in duration and distance
             duration = googleDirectionsJson.getJSONObject(0).getJSONObject("duration").getString("text");
             distance = googleDirectionsJson.getJSONObject(0).getJSONObject("distance").getString("text");
 
@@ -126,18 +126,20 @@ class DataParser {
         return getPlaces(jsonArray);
     }
 
-    public String[] parseDirections(String jsonData)
+    public HashMap<String,String> parseDirections(String jsonData)
     {
         JSONArray jsonArray = null;
-        JSONObject jsonObject;
+        JSONObject jsonObject = null;
 
         try {
             jsonObject = new JSONObject(jsonData);
-            jsonArray = jsonObject.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONArray("steps");
+            //get duration and distance from legs objects
+            jsonArray = jsonObject.getJSONArray("routes").getJSONObject(0).getJSONArray("legs");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return getPaths(jsonArray);
+        //return yo method get duration in term of jsonarray
+        return getDuration(jsonArray);
     }
 
     public String[] getPaths(JSONArray googleStepsJson )
@@ -167,7 +169,4 @@ class DataParser {
         }
         return polyline;
     }
-
-
-
 }

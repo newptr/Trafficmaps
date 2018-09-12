@@ -1,6 +1,6 @@
 package com.example.priyanka.mapsnearbyplaces;
 
-import com.example.priyanka.mapsnearbyplaces.GetNearbyPlacesData;
+//import com.example.priyanka.mapsnearbyplaces.GetNearbyPlacesData;
 import com.example.priyanka.mapsnearbyplaces.GetDirectionsData;
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.example.priyanka.mapsnearbyplaces.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -150,7 +151,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onClick(View v)
     {
         Object dataTransfer[] = new Object[2];
-        GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
+//        GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
 
 
         switch(v.getId()) {
@@ -195,53 +196,53 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
             break;
-            case R.id.B_hospital:
-                mMap.clear();
-                String hospital = "hospital";
-                String url = getUrl(latitude, longitude, hospital);
-
-                dataTransfer[0] = mMap;
-                dataTransfer[1] = url;
-
-                getNearbyPlacesData.execute(dataTransfer);
-                Toast.makeText(MapsActivity.this, "Showing Nearby Hospitals", Toast.LENGTH_LONG).show();
-                break;
-
-            case R.id.B_restaurant:
-                mMap.clear();
-                dataTransfer = new Object[2];
-                String restaurant = "restaurant";
-                url = getUrl(latitude, longitude, restaurant);
-                getNearbyPlacesData = new GetNearbyPlacesData();
-                dataTransfer[0] = mMap;
-                dataTransfer[1] = url;
-
-                getNearbyPlacesData.execute(dataTransfer);
-                Toast.makeText(MapsActivity.this, "Showing Nearby Restaurant", Toast.LENGTH_LONG).show();
-                break;
-            case R.id.B_school:
-                mMap.clear();
-                String school = "school";
-                dataTransfer = new Object[2];
-                url = getUrl(latitude, longitude, school);
-                getNearbyPlacesData = new GetNearbyPlacesData();
-                dataTransfer[0] = mMap;
-                dataTransfer[1] = url;
-
-                getNearbyPlacesData.execute(dataTransfer);
-                Toast.makeText(MapsActivity.this, "Showing Nearby Hospitals", Toast.LENGTH_LONG).show();
-                break;
-
-            case R.id.B_to:
-                dataTransfer = new Object[3];
-                url = getDirectionsUrl();
-                GetDirectionsData getDirectionsData = new GetDirectionsData();
-                dataTransfer[0] = mMap;
-                dataTransfer[1] = url;
-                dataTransfer[2] = new LatLng(end_latitude, end_longitude);
-                getDirectionsData.execute(dataTransfer);
-
-                break;
+//            case R.id.B_hospital:
+//                mMap.clear();
+//                String hospital = "hospital";
+//                String url = getUrl(latitude, longitude, hospital);
+//
+//                dataTransfer[0] = mMap;
+//                dataTransfer[1] = url;
+//
+//                getNearbyPlacesData.execute(dataTransfer);
+//                Toast.makeText(MapsActivity.this, "Showing Nearby Hospitals", Toast.LENGTH_LONG).show();
+//                break;
+//
+//            case R.id.B_restaurant:
+//                mMap.clear();
+//                dataTransfer = new Object[2];
+//                String restaurant = "restaurant";
+//                url = getUrl(latitude, longitude, restaurant);
+//                getNearbyPlacesData = new GetNearbyPlacesData();
+//                dataTransfer[0] = mMap;
+//                dataTransfer[1] = url;
+//
+//                getNearbyPlacesData.execute(dataTransfer);
+//                Toast.makeText(MapsActivity.this, "Showing Nearby Restaurant", Toast.LENGTH_LONG).show();
+//                break;
+//            case R.id.B_school:
+//                mMap.clear();
+//                String school = "school";
+//                dataTransfer = new Object[2];
+//                url = getUrl(latitude, longitude, school);
+//                getNearbyPlacesData = new GetNearbyPlacesData();
+//                dataTransfer[0] = mMap;
+//                dataTransfer[1] = url;
+//
+//                getNearbyPlacesData.execute(dataTransfer);
+//                Toast.makeText(MapsActivity.this, "Showing Nearby Hospitals", Toast.LENGTH_LONG).show();
+//                break;
+//
+//            case R.id.B_to:
+//                dataTransfer = new Object[3];
+//                url = getDirectionsUrl();
+//                GetDirectionsData getDirectionsData = new GetDirectionsData();
+//                dataTransfer[0] = mMap;
+//                dataTransfer[1] = url;
+//                dataTransfer[2] = new LatLng(end_latitude, end_longitude);
+//                getDirectionsData.execute(dataTransfer);
+//
+//                break;
         }
     }
 
