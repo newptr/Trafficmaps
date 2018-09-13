@@ -1,6 +1,5 @@
 package com.example.priyanka.mapsnearbyplaces;
 
-//import com.example.priyanka.mapsnearbyplaces.GetNearbyPlacesData;
 import com.example.priyanka.mapsnearbyplaces.GetDirectionsData;
 import android.Manifest;
 import android.content.pm.PackageManager;
